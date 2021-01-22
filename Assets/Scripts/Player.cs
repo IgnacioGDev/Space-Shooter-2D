@@ -6,6 +6,10 @@ public class Player : MonoBehaviour
 {
     [SerializeField]
     private float _speed;
+    [SerializeField]
+    private GameObject _laserPrefab;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +21,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         CalculateMovement();
+        SpawnLaser();
     }
 
     private void CalculateMovement()
@@ -30,17 +35,6 @@ public class Player : MonoBehaviour
         Vector3 direction = new Vector3(horizontalInput, verticalInput) * _speed * Time.deltaTime;
         transform.Translate(direction);
 
-        ////if player position on the y is greater than 0
-        ////y position = 0
-        //if (transform.position.y > 0)
-        //{
-        //    transform.position = new Vector3(transform.position.x, 0, 0);
-        //}
-        //else if (transform.position.y < -3.8f)
-        //{
-        //    transform.position = new Vector3(transform.position.x, -3.8f, 0);
-        //}
-
         //Bounds to the Y axis. Using the Mathf.Clamp, it sets limits to the player's movement in the Y axis to -3.8 until 0.
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.8f, 0), 0);
 
@@ -52,6 +46,14 @@ public class Player : MonoBehaviour
         else if (transform.position.x > 11.4f)
         {
             transform.position = new Vector3(-11.4f, transform.position.y, 0);
+        }
+    }
+
+    private void SpawnLaser()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Instantiate(_laserPrefab, transform.position, Quaternion.identity);
         }
     }
 
