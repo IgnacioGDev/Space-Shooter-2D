@@ -2,44 +2,48 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+namespace Scripts
 {
-    [SerializeField]
-    private float _speed = 4f;
-    [SerializeField]
-    private Vector3 _spawnPos;
-    // Start is called before the first frame update
-    void Start()
+    public class Enemy : MonoBehaviour
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        transform.Translate(Vector3.down * _speed * Time.deltaTime);
-
-        if (transform.position.y < -5)
+        [SerializeField]
+        private float _speed = 4f;
+        [SerializeField]
+        private Vector3 _spawnPos;
+        // Start is called before the first frame update
+        void Start()
         {
-            transform.position = new Vector3(Random.Range(-9.4f, 9.4f), 7.5f, 0);
+
         }
-    }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
+        // Update is called once per frame
+        void Update()
         {
-            Player player = other.GetComponent<Player>();
-            if (player != null)
+            transform.Translate(Vector3.down * _speed * Time.deltaTime);
+
+            if (transform.position.y < -5)
             {
-                player.Damage();   
+                transform.position = new Vector3(Random.Range(-9.4f, 9.4f), 7.5f, 0);
             }
         }
-        else if (other.gameObject.CompareTag("Laser"))
-        {
-            Destroy(other.gameObject);
-        }
 
-        Destroy(gameObject);
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.CompareTag("Player"))
+            {
+                Player player = other.GetComponent<Player>();
+                if (player != null)
+                {
+                    player.Damage();
+                }
+            }
+            else if (other.gameObject.CompareTag("Laser"))
+            {
+                Destroy(other.gameObject);
+            }
+
+            Destroy(gameObject);
+        }
     }
+
 }

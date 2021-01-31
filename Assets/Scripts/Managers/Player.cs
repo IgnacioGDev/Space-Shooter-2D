@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private static Player _instance;
+    public static Player Instance
+    {
+        get 
+        {
+            if (_instance == null)
+            {
+                Debug.Log("Player can't be null!!");
+            }
+            return _instance;
+        }
+    }
+
+
     [SerializeField]
     private float _speed;
     [SerializeField]
@@ -17,6 +31,13 @@ public class Player : MonoBehaviour
     //STATS
     [SerializeField]
     private int _lives = 3;
+    [SerializeField]
+    private bool _isAlive = true;
+
+    private void Awake()
+    {
+        _instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -74,8 +95,14 @@ public class Player : MonoBehaviour
 
         if (_lives < 1)
         {
+            _isAlive = false;
             Destroy(gameObject);
         }
+    }
+
+    public bool PlayerStatus()
+    {
+        return _isAlive;
     }
 
 }
