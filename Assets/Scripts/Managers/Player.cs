@@ -17,22 +17,27 @@ public class Player : MonoBehaviour
         }
     }
 
-
+    //*******************PLAYER STATS VARIABLES********************
     [SerializeField]
     private float _speed;
     [SerializeField]
+    private int _lives = 3;
+    [SerializeField]
+    private bool _isAlive = true;
+
+    //*******************LASER/SHOT VARIABLES********************
+    [SerializeField]
     private GameObject _laserPrefab;
+    [SerializeField]
+    private GameObject _tripleShotPref;
     [SerializeField]
     private Vector3 _laserOffset = new Vector3(0, 1.05f, 0);
     [SerializeField]
     private float _fireRate = 0.5f;
     private float _canFire = -1f;
+    [SerializeField]
+    private bool _isTripleShotActive;
 
-    //STATS
-    [SerializeField]
-    private int _lives = 3;
-    [SerializeField]
-    private bool _isAlive = true;
 
     private void Awake()
     {
@@ -85,7 +90,16 @@ public class Player : MonoBehaviour
     private void FireLaser()
     {
         _canFire = Time.time + _fireRate;
-        Instantiate(_laserPrefab, transform.position + _laserOffset, Quaternion.identity);
+        
+
+        if (_isTripleShotActive)
+        {
+            Instantiate(_tripleShotPref, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(_laserPrefab, transform.position + _laserOffset, Quaternion.identity);
+        }
     }
 
     public void Damage()
@@ -103,6 +117,18 @@ public class Player : MonoBehaviour
     public bool PlayerStatus()
     {
         return _isAlive;
+    }
+
+    public void AcivateTripleShot()
+    {
+        _isTripleShotActive = true;
+        StartCoroutine(TripleShotTimer());
+    }
+
+    IEnumerator TripleShotTimer()
+    {
+        yield return new WaitForSeconds(5f);
+        _isTripleShotActive = false;
     }
 
 }
