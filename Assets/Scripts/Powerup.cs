@@ -38,7 +38,7 @@ public class Powerup : MonoBehaviour
                     Player.Instance.ActivateSpeedPowerup();
                     break;
                 case 2:
-                    Debug.Log("COLLECTED SHIELDS!!!");
+                    Player.Instance.ActivateShieldPowerup();
                     break;
                 default:
                     Debug.Log("DEFAULT VALUE!");

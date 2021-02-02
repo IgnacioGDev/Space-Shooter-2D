@@ -43,6 +43,8 @@ public class Player : MonoBehaviour
     private bool _isSpeedPowerupActive = false;
     [SerializeField]
     private bool _isShieldPowerUpActive = false;
+    [SerializeField]
+    private GameObject _shieldPrefab;
 
 
     private void Awake()
@@ -120,6 +122,13 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
+        if (_isShieldPowerUpActive)
+        {
+            _isShieldPowerUpActive = false;
+            _shieldPrefab.SetActive(false);
+            return;
+        }
+
         _lives--;
         Debug.Log("Amount of lives: " + _lives);
 
@@ -145,6 +154,12 @@ public class Player : MonoBehaviour
     {
         _isSpeedPowerupActive = true;
         StartCoroutine(SpeedPowerupTimer());
+    }
+
+    public void ActivateShieldPowerup()
+    {
+        _isShieldPowerUpActive = true;
+        _shieldPrefab.SetActive(true);
     }
 
     IEnumerator TripleShotPowerupTimer()
