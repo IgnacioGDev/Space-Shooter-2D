@@ -35,8 +35,14 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _fireRate = 0.5f;
     private float _canFire = -1f;
+
+    //******************POWERUPS*********************************
     [SerializeField]
-    private bool _isTripleShotActive;
+    private bool _isTripleShotPowerupActive = false;
+    [SerializeField]
+    private bool _isSpeedPowerupActive = false;
+    [SerializeField]
+    private bool _isShieldPowerUpActive = false;
 
 
     private void Awake()
@@ -85,6 +91,16 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector3(-11.4f, transform.position.y, 0);
         }
+
+        if (_isSpeedPowerupActive)
+        {
+
+            _speed = 15;
+        }
+        else
+        {
+            _speed = 5;
+        }
     }
 
     private void FireLaser()
@@ -92,7 +108,7 @@ public class Player : MonoBehaviour
         _canFire = Time.time + _fireRate;
         
 
-        if (_isTripleShotActive)
+        if (_isTripleShotPowerupActive)
         {
             Instantiate(_tripleShotPref, transform.position, Quaternion.identity);
         }
@@ -121,14 +137,26 @@ public class Player : MonoBehaviour
 
     public void AcivateTripleShot()
     {
-        _isTripleShotActive = true;
-        StartCoroutine(TripleShotTimer());
+        _isTripleShotPowerupActive = true;
+        StartCoroutine(TripleShotPowerupTimer());
     }
 
-    IEnumerator TripleShotTimer()
+    public void ActivateSpeedPowerup()
+    {
+        _isSpeedPowerupActive = true;
+        StartCoroutine(SpeedPowerupTimer());
+    }
+
+    IEnumerator TripleShotPowerupTimer()
     {
         yield return new WaitForSeconds(5f);
-        _isTripleShotActive = false;
+        _isTripleShotPowerupActive = false;
+    }
+
+    IEnumerator SpeedPowerupTimer()
+    {
+        yield return new WaitForSeconds(5f);
+        _isSpeedPowerupActive = false;
     }
 
 }

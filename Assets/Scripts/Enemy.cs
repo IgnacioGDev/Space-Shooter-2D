@@ -35,14 +35,18 @@ namespace Scripts
                 if (player != null)
                 {
                     player.Damage();
+                    Destroy(gameObject);
+
                 }
+
             }
             else if (other.gameObject.CompareTag("Laser"))
             {
                 Destroy(other.gameObject);
+                Destroy(gameObject);
+
             }
 
-            Destroy(gameObject);
         }
     }
 

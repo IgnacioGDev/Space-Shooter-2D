@@ -21,13 +21,17 @@ namespace Scripts.Managers
             }
         }
 
-
+        //*******************ENEMIES************************
         [SerializeField]
         private GameObject _enemyPrefab;
         [SerializeField]
         private GameObject _enemyContainer;
         [SerializeField]
         private float _randomValue = 9f;
+
+        //******************POWERUPS************************
+        [SerializeField]
+        private GameObject[] _powerUps;
 
         private void Awake()
         {
@@ -39,6 +43,7 @@ namespace Scripts.Managers
         void Start()
         {
             StartCoroutine(SpawnEnemy());
+            StartCoroutine(SpawnPowerUp());
         }
 
         // Update is called once per frame
@@ -59,6 +64,19 @@ namespace Scripts.Managers
                 yield return new WaitForSeconds(2f);
             }
 
+        }
+
+        private IEnumerator SpawnPowerUp()
+        {
+            while (Player.Instance.PlayerStatus())
+            {
+                int randomIndex = Mathf.RoundToInt(Random.Range(0, 3));
+                yield return new WaitForSeconds(Random.Range(3,5));
+                Vector3 postoSpawn = new Vector3(Random.Range(-_randomValue, _randomValue), 10, 0);
+                GameObject powerUp = Instantiate(_powerUps[randomIndex], postoSpawn, Quaternion.identity);
+                powerUp.transform.parent = gameObject.transform;
+
+            }
         }
     }
 }
