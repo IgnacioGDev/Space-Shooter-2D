@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     private static Player _instance;
     public static Player Instance
     {
-        get 
+        get
         {
             if (_instance == null)
             {
@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
 
     //****************STATS*************************************
     [SerializeField]
-    private int _score; 
+    private int _score;
 
 
     private void Awake()
@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         CalculateMovement();
-        
+
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
             FireLaser();
@@ -82,8 +82,7 @@ public class Player : MonoBehaviour
 
         //New vector 3 is created to capture the horizontal and vertical axes for use them later in transform.translate.
         //This variable has already the speed and Time.deltaTime values implemented.
-        Vector3 direction = new Vector3(horizontalInput, verticalInput) * _speed * Time.deltaTime;
-        transform.Translate(direction);
+        Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
 
         //Bounds to the Y axis. Using the Mathf.Clamp, it sets limits to the player's movement in the Y axis to -3.8 until 0.
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.8f, 0), 0);
@@ -98,21 +97,24 @@ public class Player : MonoBehaviour
             transform.position = new Vector3(-11.4f, transform.position.y, 0);
         }
 
+        //SPEED POWER UP!!
         if (_isSpeedPowerupActive)
         {
 
-            _speed = 15;
+            transform.Translate(direction * (_speed * 2) * Time.deltaTime);
+
         }
         else
         {
-            _speed = 5;
+            transform.Translate(direction * _speed * Time.deltaTime);
+
         }
     }
 
     private void FireLaser()
     {
         _canFire = Time.time + _fireRate;
-        
+
 
         if (_isTripleShotPowerupActive)
         {
