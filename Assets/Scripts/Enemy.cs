@@ -10,6 +10,9 @@ namespace Scripts
         private float _speed = 4f;
         [SerializeField]
         private Vector3 _spawnPos;
+        [SerializeField]
+        private int _pointsValue;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -43,6 +46,7 @@ namespace Scripts
             else if (other.gameObject.CompareTag("Laser"))
             {
                 Destroy(other.gameObject);
+                Player.Instance.AddScore(_pointsValue);
                 Destroy(gameObject);
 
             }

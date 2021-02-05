@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 4
   _spawnPos: {x: 0, y: 0, z: 0}
+  _pointsValue: 25
 --- !u!212 &1941638400311176896
 SpriteRenderer:
   m_ObjectHideFlags: 0

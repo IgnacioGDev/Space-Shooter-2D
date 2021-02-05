@@ -46,6 +46,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _shieldPrefab;
 
+    //****************STATS*************************************
+    [SerializeField]
+    private int _score; 
+
 
     private void Awake()
     {
@@ -137,6 +141,8 @@ public class Player : MonoBehaviour
             _isAlive = false;
             Destroy(gameObject);
         }
+
+        UI_Manager.Instance.GameOverText();
     }
 
     public bool PlayerStatus()
@@ -160,6 +166,21 @@ public class Player : MonoBehaviour
     {
         _isShieldPowerUpActive = true;
         _shieldPrefab.SetActive(true);
+    }
+
+    public void AddScore(int points)
+    {
+        _score += points;
+    }
+
+    public int GetCurrentScore()
+    {
+        return _score;
+    }
+
+    public int GetPlayerLives()
+    {
+        return _lives;
     }
 
     IEnumerator TripleShotPowerupTimer()
