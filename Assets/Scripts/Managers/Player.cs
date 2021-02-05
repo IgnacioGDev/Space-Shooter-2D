@@ -139,6 +139,7 @@ public class Player : MonoBehaviour
         if (_lives < 1)
         {
             _isAlive = false;
+            GameManager.Instance.GameOver();
             Destroy(gameObject);
         }
 

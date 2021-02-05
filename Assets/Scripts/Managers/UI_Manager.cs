@@ -28,6 +28,8 @@ public class UI_Manager : MonoBehaviour
 
     [SerializeField]
     private Text _gameOverText;
+    [SerializeField]
+    private Text _restartInstructions;
 
     public float timer = 3;
 
@@ -66,6 +68,7 @@ public class UI_Manager : MonoBehaviour
 
     IEnumerator GameOverTextFlicker()
     {
+        _restartInstructions.gameObject.SetActive(true);
         while (timer > 0)
         {
             yield return new WaitForSeconds(0.5f);
