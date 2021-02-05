@@ -1,11 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 using UnityEngine;
 
-namespace Scripts.Managers
+namespace Scripts
 {
-    public class MainManu : MonoBehaviour
+    public class Astroid : MonoBehaviour
     {
         // Start is called before the first frame update
         void Start()
@@ -16,13 +15,13 @@ namespace Scripts.Managers
         // Update is called once per frame
         void Update()
         {
-
+            Rotation();
         }
 
-        public void LoadGame()
+        private void Rotation()
         {
-            SceneManager.LoadScene(1);
+            transform.Rotate(0f, 0f, 0.5f, Space.Self);
         }
     }
-
 }
+

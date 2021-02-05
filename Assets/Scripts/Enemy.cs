@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Scripts.Managers;
 
 namespace Scripts
 {
@@ -12,11 +13,16 @@ namespace Scripts
         private Vector3 _spawnPos;
         [SerializeField]
         private int _pointsValue;
+        [SerializeField]
+        private Animator _anim;
+        [SerializeField]
+        private BoxCollider2D _boxCollider2D;
 
         // Start is called before the first frame update
         void Start()
         {
-
+            _anim = GetComponent<Animator>();
+            _boxCollider2D = GetComponent<BoxCollider2D>();
         }
 
         // Update is called once per frame
@@ -32,13 +38,18 @@ namespace Scripts
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            
+
             if (other.gameObject.CompareTag("Player"))
             {
                 Player player = other.GetComponent<Player>();
                 if (player != null)
                 {
                     player.Damage();
-                    Destroy(gameObject);
+                    _anim.SetTrigger("OnEnemyDeath");
+                    _boxCollider2D.enabled = false;
+                    _speed /= 2;
+                    Destroy(gameObject, 2.8f);
 
                 }
 
@@ -47,7 +58,10 @@ namespace Scripts
             {
                 Destroy(other.gameObject);
                 Player.Instance.AddScore(_pointsValue);
-                Destroy(gameObject);
+                _anim.SetTrigger("OnEnemyDeath");
+                _boxCollider2D.enabled = false;
+                _speed /= 2;
+                Destroy(gameObject, 2.8f);
 
             }
 
