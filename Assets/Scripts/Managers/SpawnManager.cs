@@ -42,6 +42,11 @@ namespace Scripts.Managers
         // Start is called before the first frame update
         void Start()
         {
+            
+        }
+
+        public void StartSpawning()
+        {
             StartCoroutine(SpawnEnemy());
             StartCoroutine(SpawnPowerUp());
         }

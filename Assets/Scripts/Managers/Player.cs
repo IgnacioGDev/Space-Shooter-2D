@@ -26,6 +26,9 @@ namespace Scripts.Managers
         private int _lives = 3;
         [SerializeField]
         private bool _isAlive = true;
+        [SerializeField]
+        private int _score;
+
 
         //*******************LASER/SHOT VARIABLES********************
         [SerializeField]
@@ -48,9 +51,12 @@ namespace Scripts.Managers
         [SerializeField]
         private GameObject _shieldPrefab;
 
-        //****************STATS*************************************
+        //****************ANIMATIONS/OTHERS**************************
         [SerializeField]
-        private int _score;
+        private GameObject _damage;
+        [SerializeField]
+        private GameObject _damageCritical;
+
 
 
         private void Awake()
@@ -74,6 +80,8 @@ namespace Scripts.Managers
             {
                 FireLaser();
             }
+
+            ShowDamage();
         }
 
         private void CalculateMovement()
@@ -176,6 +184,24 @@ namespace Scripts.Managers
         public void AddScore(int points)
         {
             _score += points;
+        }
+
+        private void ShowDamage()
+        {
+            switch (_lives)
+            {
+                case 0:
+                    Debug.Log("PLAYER DESTROYED!");
+                    break;
+                case 1:
+                    _damageCritical.SetActive(true);
+
+                    break;
+                case 2:
+                    _damage.SetActive(true);
+                    break;
+            }
+
         }
 
         public int GetCurrentScore()
