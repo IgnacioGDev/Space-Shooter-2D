@@ -513,6 +513,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _explosion: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   _powerup: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
+  _laser: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1422,6 +1423,8 @@ MonoBehaviour:
   _shieldPrefab: {fileID: 26398870}
   _damage: {fileID: 777371279}
   _damageCritical: {fileID: 1128717293}
+  _explosionFX: {fileID: 2905684598504089827, guid: 5b7581f3e34108f4f891f86ce42fe998,
+    type: 3}
   _laserSound: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
   _explosionSound: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
 --- !u!212 &1843707051

@@ -52,6 +52,10 @@ MonoBehaviour:
   _pointsValue: 25
   _anim: {fileID: 0}
   _boxCollider2D: {fileID: 0}
+  _laserEnemy: {fileID: 4517637912956722913, guid: 96b472bbf5f75894f9705d9264465f62,
+    type: 3}
+  _fireRate: 0
+  _canFire: -1
 --- !u!212 &1941638400311176896
 SpriteRenderer:
   m_ObjectHideFlags: 0

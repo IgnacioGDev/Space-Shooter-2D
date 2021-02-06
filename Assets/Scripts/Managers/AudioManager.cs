@@ -26,6 +26,8 @@ namespace Scripts.Managers
         private AudioClip _explosion;
         [SerializeField]
         private AudioClip _powerup;
+        [SerializeField]
+        private AudioClip _laser;
 
 
         private void Awake()
@@ -47,6 +49,11 @@ namespace Scripts.Managers
         public void PlayPowerUpSound()
         {
             _aSource.PlayOneShot(_powerup); 
+        }
+
+        public void PlayLaserSound()
+        {
+            _aSource.PlayOneShot(_laser);
         }
     }
 }

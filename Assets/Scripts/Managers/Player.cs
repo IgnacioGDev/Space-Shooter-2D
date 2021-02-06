@@ -56,6 +56,8 @@ namespace Scripts.Managers
         private GameObject _damage;
         [SerializeField]
         private GameObject _damageCritical;
+        [SerializeField]
+        private GameObject _explosionFX;
 
 
         //****************SFX**************************
@@ -159,6 +161,9 @@ namespace Scripts.Managers
 
             _lives--;
             Debug.Log("Amount of lives: " + _lives);
+            Instantiate(_explosionFX, transform.position, Quaternion.identity);
+            AudioManager.Instance.PlayExplosionSound();
+
 
             if (_lives < 1)
             {

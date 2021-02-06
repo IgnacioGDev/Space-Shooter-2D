@@ -17,6 +17,12 @@ namespace Scripts
         private Animator _anim;
         [SerializeField]
         private BoxCollider2D _boxCollider2D;
+        [SerializeField]
+        private GameObject _laserEnemy;
+        [SerializeField]
+        private float _fireRate;
+        [SerializeField]
+        private float _canFire = -1;
 
         // Start is called before the first frame update
         void Start()
@@ -28,6 +34,12 @@ namespace Scripts
         // Update is called once per frame
         void Update()
         {
+            Movement();
+            Shot();
+        }
+
+        private void Movement()
+        {
             transform.Translate(Vector3.down * _speed * Time.deltaTime);
 
             if (transform.position.y < -5)
@@ -36,9 +48,20 @@ namespace Scripts
             }
         }
 
+        private void Shot()
+        {
+            if (_canFire < Time.deltaTime)
+            {
+                AudioManager.Instance.PlayLaserSound();
+                _fireRate = Random.RandomRange(3f, 7f);
+                _canFire = Time.deltaTime + _fireRate;
+                Instantiate(_laserEnemy, transform.position, Quaternion.identity);
+            }
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
-            
+
 
             if (other.gameObject.CompareTag("Player"))
             {
