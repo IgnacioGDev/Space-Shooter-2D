@@ -45,6 +45,7 @@ namespace Scripts
                 Player player = other.GetComponent<Player>();
                 if (player != null)
                 {
+                    AudioManager.Instance.PlayExplosionSound();
                     player.Damage();
                     _anim.SetTrigger("OnEnemyDeath");
                     _boxCollider2D.enabled = false;
@@ -56,6 +57,7 @@ namespace Scripts
             }
             else if (other.gameObject.CompareTag("Laser"))
             {
+                AudioManager.Instance.PlayExplosionSound();
                 Destroy(other.gameObject);
                 Player.Instance.AddScore(_pointsValue);
                 _anim.SetTrigger("OnEnemyDeath");

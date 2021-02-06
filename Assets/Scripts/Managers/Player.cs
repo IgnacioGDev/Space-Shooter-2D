@@ -58,6 +58,14 @@ namespace Scripts.Managers
         private GameObject _damageCritical;
 
 
+        //****************SFX**************************
+        private AudioSource _audioSource;
+        [SerializeField]
+        private AudioClip _laserSound;
+        [SerializeField]
+        private AudioClip _explosionSound;
+
+
 
         private void Awake()
         {
@@ -67,6 +75,8 @@ namespace Scripts.Managers
         // Start is called before the first frame update
         void Start()
         {
+            _audioSource = GetComponent<AudioSource>();
+
             //take the curent position = new position (0,0,0)
             transform.position = Vector3.zero;
         }
@@ -134,6 +144,8 @@ namespace Scripts.Managers
             {
                 Instantiate(_laserPrefab, transform.position + _laserOffset, Quaternion.identity);
             }
+
+            _audioSource.PlayOneShot(_laserSound);
         }
 
         public void Damage()

@@ -31,13 +31,11 @@ namespace Scripts
             transform.Rotate(Vector3.forward * _rotationSpeed * Time.deltaTime);
         }
 
-        private void OnDestroy()
-        {
-        }
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Laser"))
             {
+                AudioManager.Instance.PlayExplosionSound();
                 GameObject explosion =  Instantiate(_explosionPref, transform.position, Quaternion.identity);
                 Destroy(other.gameObject);
                 Destroy(gameObject, 0.25f);

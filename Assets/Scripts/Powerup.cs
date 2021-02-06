@@ -32,6 +32,8 @@ namespace Scripts
         {
             if (collision.CompareTag("Player"))
             {
+                AudioManager.Instance.PlayPowerUpSound();
+
                 switch (_powerUpID)
                 {
                     case 0:
