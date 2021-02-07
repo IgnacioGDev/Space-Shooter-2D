@@ -39,6 +39,7 @@ namespace Scripts.Managers
         void Update()
         {
             RestartGame();
+            CloseApp();
         }
 
         private void RestartGame()
@@ -52,6 +53,14 @@ namespace Scripts.Managers
         public void GameOver()
         {
             _isGameOver = true;
+        }
+
+        private void CloseApp()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Application.Quit();
+            }
         }
     }
 }
