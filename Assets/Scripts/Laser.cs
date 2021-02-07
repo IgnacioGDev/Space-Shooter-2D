@@ -1,35 +1,70 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Scripts.Managers;
 
-public class Laser : MonoBehaviour
+namespace Scripts
 {
-    [SerializeField]
-    private float _speed;
-
-    // Update is called once per frame
-    void Update()
+    public class Laser : MonoBehaviour
     {
-        LaserMovement();
-        DestroyLaser();
-        
-    }
+        [SerializeField]
+        private float _speed;
+        private bool _isEnemyLaser = false;
 
-    void LaserMovement()
-    {
-        transform.Translate(Vector3.up * _speed * Time.deltaTime);
-    }
-
-    void DestroyLaser()
-    {
-        if (transform.position.y > Screen.height/100)
+        // Update is called once per frame
+        void Update()
         {
-            //checks if the laser has a parent gameobject
-            if (transform.parent != null)
+            if (_isEnemyLaser == false)
             {
-                Destroy(transform.parent.gameObject);
+                MoveUp();
+
             }
-            Destroy(gameObject, 0.5f);
+            else
+            {
+                MoveDown();
+
+            }
         }
+
+        void MoveUp()
+        {
+            transform.Translate(Vector3.up * _speed * Time.deltaTime);
+
+            if (transform.position.y > Screen.height / 100)
+            {
+                //checks if the laser has a parent gameobject
+                if (transform.parent != null)
+                {
+                    Destroy(transform.parent.gameObject);
+                }
+                Destroy(gameObject, 0.5f);
+            }
+        }
+
+        void MoveDown()
+        {
+            transform.Translate(Vector3.down * _speed * Time.deltaTime);
+
+            if (transform.position.y < -8)
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        public void AssignEnemyLaser()
+        {
+            _isEnemyLaser = true;
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag("Player") && _isEnemyLaser == true)
+            {
+                Player.Instance.Damage();
+                Destroy(gameObject);
+            }
+        }
+
     }
+
 }

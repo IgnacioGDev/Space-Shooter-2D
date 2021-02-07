@@ -55,7 +55,13 @@ namespace Scripts
                 AudioManager.Instance.PlayLaserSound();
                 _fireRate = Random.RandomRange(3f, 7f);
                 _canFire = Time.deltaTime + _fireRate;
-                Instantiate(_laserEnemy, transform.position, Quaternion.identity);
+                GameObject laser = Instantiate(_laserEnemy, transform.position, Quaternion.identity);
+                Laser[] lasers = laser.GetComponentsInChildren<Laser>();
+
+                for (int i = 0; i < lasers.Length; i++)
+                {
+                    lasers[i].AssignEnemyLaser();
+                }
             }
         }
 
